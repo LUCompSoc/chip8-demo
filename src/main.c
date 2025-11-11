@@ -68,7 +68,7 @@ int main(void)
     char* program;
     int program_length;
     {
-        struct FileReadResult read_file = read_whole_file("../programs/IBM_Logo.ch8");
+        struct FileReadResult read_file = read_whole_file("./programs/IBM_Logo.ch8");
         if (!read_file.success) {
             return 1;
         }
