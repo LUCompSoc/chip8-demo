@@ -1,0 +1,21 @@
+In this emulator, the display instruction (DXYN) is completed for you,
+and it is your task to fill out the others!
+
+Some sample programs are included in the /programs directory.
+In order to run the IBM logo program, you need to complete these instructions:
+
+1NNN: Jump to instruction
+6XNN: Set register VX to NN
+7XNN: Add NN to VX (without changing carry bit)
+ANNN: Set index register to NNN
+
+A great article about Chip8 to help you (and sourced a lot of the presentation)
+is here:
+
+https://tobiasvl.github.io/blog/write-a-chip-8-emulator/
+
+-----------------------------------
+Made using the Raylib library for the window and graphics, and includes 
+Chip8 programs from:
+
+https://github.com/Timendus/chip8-test-suite/
