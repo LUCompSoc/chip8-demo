@@ -9,6 +9,8 @@ In order to run the IBM logo program, you need to complete these instructions:
 7XNN: Add NN to VX (without changing carry bit)
 ANNN: Set index register to NNN
 
+The functionality for these instructions are in cpu.c
+
 A great article about Chip8 to help you (and sourced a lot of the presentation)
 is here:
 

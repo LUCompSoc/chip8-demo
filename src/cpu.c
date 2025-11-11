@@ -39,24 +39,19 @@ int cpu_execute(struct System *system, u16 instruction, u16 input) {
             }
             break;
         case 0x1:
-            // Jump to instruction, set PC to NNN (1NNN)
-            system->pc = instruction & 0x0FFF;
+            // TODO: Jump to instruction, set PC to NNN (1NNN)
             break;
         case 0x6:
-            // Set register VX to NN (7XNN)
-            system->registers[(instruction & 0x0F00) >> 8] = instruction & 0x00FF;
+            // TODO: Set register VX to NN (7XNN)
             break;
         case 0x7:
-            // Add NN to VX (6XNN)
-            system->registers[(instruction & 0x0F00) >> 8] += instruction & 0x00FF;
+            // TODO: Add NN to VX (6XNN)
             break;
         case 0xA:
-            // Set index register to NNN (ANNN)
-            system->I = instruction & 0x0FFF;
+            // TODO: Set index register to NNN (ANNN)
             break;
         case 0xD:
-            // Display sprite (DXYN)
-            cpu_instr_display(system, instruction);
+            // TODO: Display sprite (DXYN)
             break;
     }
 
