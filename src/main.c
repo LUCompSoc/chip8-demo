@@ -68,7 +68,7 @@ int main(void)
     char* program;
     int program_length;
     {
-        struct FileReadResult read_file = read_whole_file("./programs/IBM_Logo.ch8");
+        struct FileReadResult read_file = read_whole_file("../programs/IBM_Logo.ch8");
         if (!read_file.success) {
             return 1;
         }
@@ -76,7 +76,7 @@ int main(void)
         program_length = read_file.length;
     }
 
-    struct System* system = malloc(sizeof(struct System));
+    struct System* system = calloc(sizeof(struct System), 1);
 
     if (!init_system(system, program, program_length)) {
         return 1;

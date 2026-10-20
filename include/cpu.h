@@ -3,13 +3,13 @@
 #include "system.h"
 
 enum CPUExecuteResult {
-    ExecuteNormal,
-    ExecuteBlock,
-    ExecuteInvalidInstruction,
+    ExecuteAdvance,             // This means we increment the Program Counter by 2 after running the instruction.
+    ExecuteWithoutAdvancing,    // This means we don't change the Program Counter after (such as with the Jump instruction)
+    ExecuteInvalidInstruction,  // This means the input opcode was invalid or not implemented.
 };
 
 void cpu_decrement_timers(struct System* system);
-void cpu_fetch_and_execute(struct System* system, u16 input);
+bool cpu_fetch_and_execute(struct System* system, u16 input);
 int cpu_execute(struct System* system, u16 instruction, u16 input);
 
 void cpu_instr_display(struct System* system, u16 instruction);

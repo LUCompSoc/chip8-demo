@@ -13,7 +13,7 @@ void cpu_decrement_timers(struct System *system) {
     }
 }
 
-void cpu_fetch_and_execute(struct System *system, u16 input) {
+bool cpu_fetch_and_execute(struct System *system, u16 input) {
     // Get the next 16-bit instruction according to the program counter.
     u16 instruction = ((u16)system->ram[system->pc] << 8) + system->ram[system->pc + 1];
 
@@ -22,43 +22,59 @@ void cpu_fetch_and_execute(struct System *system, u16 input) {
     
     // Execute the instruction. If it returns false, such as if it is
     // a halting instruction, set the PC back to what it was.
-    if (!cpu_execute(system, instruction, input)) {
-        system->pc -= 2;
+    int result = cpu_execute(system, instruction, input);
+
+    switch (result) {
+        case ExecuteAdvance:
+            break;
+        case ExecuteWithoutAdvancing:
+            system->pc -= 2;
+            break;
+        case ExecuteInvalidInstruction:
+            return false;
     }
+
+    return true;
 }
 
 int cpu_execute(struct System *system, u16 instruction, u16 input) {
-    // Isolate the first nibble (4 bits)
+    // Isolate the first nibble (4 bits) using bit-shifting.
     u8 first_nibble = instruction >> 12;
 
+    // For just the basic instructions we only need to look at the first nibble
+    // of the opcode to figure out which instruction to execute
     switch (first_nibble) {
         case 0x0:
             if (instruction == 0x00E0) {
                 // Clear screen (00E0)
                 memset(system->display, 0, sizeof(system->display));
             }
-            break;
+            return ExecuteAdvance;
         case 0x1:
             // TODO: Jump to instruction, set PC to NNN (1NNN)
-            break;
+            
+            return ExecuteAdvance;
         case 0x6:
             // TODO: Set register VX to NN (7XNN)
-            break;
+            
+            return ExecuteAdvance;
         case 0x7:
             // TODO: Add NN to VX (6XNN)
-            break;
+            
+            return ExecuteAdvance;
         case 0xA:
-            // TODO: Set index register to NNN (ANNN)
-            break;
+            // TODO: Set index register I to NNN (ANNN)
+            
+            return ExecuteAdvance;
         case 0xD:
-            // TODO: Display sprite (DXYN)
-            break;
+            // Display sprite (DXYN)
+            cpu_instr_display(system, instruction);
+            return ExecuteAdvance;
     }
 
     return ExecuteInvalidInstruction;
 }
 
-// 
 void cpu_instr_display(struct System *system, u16 instruction) {
     u8 h = instruction & 0x000F;
 

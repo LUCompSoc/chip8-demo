@@ -32,5 +32,7 @@ bool init_system(struct System* system, u8* program, int program_size) {
     // Copy the program to RAM
     memcpy(system->ram + PROGRAM_START_INDEX, program, program_size);
 
+    system->pc = PROGRAM_START_INDEX;
+
     return true;
 }
